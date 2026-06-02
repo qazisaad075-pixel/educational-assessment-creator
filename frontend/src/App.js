@@ -12,7 +12,7 @@ function App() {
   const createAssessment = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/create-assessment', {
+      const response = await axios.post('https://educational-assessment-creator-production.up.railway.app/create-assessment', {
         subject: subject,
         grade_level: parseInt(gradeLevel),
         topic: topic

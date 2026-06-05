@@ -1,36 +1,78 @@
 def question_agent(objectives: list, subject: str, topic: str):
-    questions = []
 
-    for i in range(1, 11):  # 👉 10 QUESTIONS FIX
-        if i == 1:
-            q_type = "mcq"
-        elif i == 2:
-            q_type = "short_answer"
-        elif i == 3:
-            q_type = "essay"
-        else:
-            q_type = "short_answer"
-
-        question_text = f"Q{i}: Explain {topic} in context of {subject}. Provide detailed understanding."
-
-        question = {
-            "id": i,
-            "type": q_type,
-            "question": question_text,
-            "correct_answer": f"Understanding of {topic} in {subject}"
-        }
-
-        # MCQ options sirf MCQ ke liye
-        if q_type == "mcq":
-            question["options"] = [
-                f"{topic} definition",
-                f"{subject} concept",
-                "General knowledge",
-                "None of the above"
+    questions = [
+        {
+            "id": 1,
+            "type": "mcq",
+            "question": f"What is the correct definition of {topic}?",
+            "correct_answer": f"Definition of {topic}",
+            "options": [
+                f"Definition of {topic}",
+                "Incorrect answer A",
+                "Incorrect answer B",
+                "Incorrect answer C"
             ]
+        },
+        {
+            "id": 2,
+            "type": "short_answer",
+            "question": f"Explain the meaning of {topic} in {subject}.",
+            "correct_answer": f"Explanation of {topic}"
+        },
+        {
+            "id": 3,
+            "type": "essay",
+            "question": f"Discuss the importance of {topic} in {subject}.",
+            "correct_answer": f"Importance of {topic}"
+        },
+        {
+            "id": 4,
+            "type": "short_answer",
+            "question": f"Give two examples related to {topic}.",
+            "correct_answer": "Relevant examples"
+        },
+        {
+            "id": 5,
+            "type": "short_answer",
+            "question": f"What are the main characteristics of {topic}?",
+            "correct_answer": "Key characteristics"
+        },
+        {
+            "id": 6,
+            "type": "essay",
+            "question": f"Analyze the role of {topic} in real-world situations.",
+            "correct_answer": "Role analysis"
+        },
+        {
+            "id": 7,
+            "type": "short_answer",
+            "question": f"How can students apply {topic} in practice?",
+            "correct_answer": "Application answer"
+        },
+        {
+            "id": 8,
+            "type": "mcq",
+            "question": f"Which statement best describes {topic}?",
+            "correct_answer": f"Best description of {topic}",
+            "options": [
+                f"Best description of {topic}",
+                "Wrong option A",
+                "Wrong option B",
+                "Wrong option C"
+            ]
+        },
+        {
+            "id": 9,
+            "type": "short_answer",
+            "question": f"Compare {topic} with a related concept.",
+            "correct_answer": "Comparison answer"
+        },
+        {
+            "id": 10,
+            "type": "essay",
+            "question": f"Evaluate the significance of {topic} in {subject}.",
+            "correct_answer": "Evaluation answer"
+        }
+    ]
 
-        questions.append(question)
-
-    return {
-        "questions": questions
-    }
+    return {"questions": questions}

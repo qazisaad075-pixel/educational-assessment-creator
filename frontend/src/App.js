@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -8,6 +8,28 @@ function App() {
   const [topic, setTopic] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // ✅ NEW: stats state added
+  const [stats, setStats] = useState({
+    total_assessments: 0,
+    total_questions: 0,
+    success_rate: 0,
+  });
+
+  const loadStats = async () => {
+    try {
+      const response = await axios.get(
+        "https://educational-assessment-creator-production.up.railway.app/stats"
+      );
+      setStats(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadStats();
+  }, []);
 
   const createAssessment = async () => {
     if (!subject || !gradeLevel || !topic) {
@@ -28,6 +50,9 @@ function App() {
       );
 
       setResult(response.data);
+
+      // ✅ refresh stats after create
+      loadStats();
     } catch (error) {
       alert("Error: " + error.message);
     }
@@ -42,19 +67,20 @@ function App() {
         <p>AI Powered Assessment Generation System</p>
       </div>
 
+      {/* ✅ LIVE STATS (NOW REAL) */}
       <div className="stats">
         <div className="card">
-          <h2>50+</h2>
+          <h2>{stats.total_assessments}</h2>
           <p>Assessments Created</p>
         </div>
 
         <div className="card">
-          <h2>100+</h2>
+          <h2>{stats.total_questions}</h2>
           <p>Questions Generated</p>
         </div>
 
         <div className="card">
-          <h2>95%</h2>
+          <h2>{stats.success_rate}%</h2>
           <p>Success Rate</p>
         </div>
       </div>

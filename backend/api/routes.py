@@ -53,3 +53,22 @@ def create_assessment(req: AssessmentRequest, db: Session = Depends(get_db)):
 def get_assessments(db: Session = Depends(get_db)):
     assessments = db.query(Assessment).all()
     return assessments
+@router.get("/stats")
+def get_stats(db: Session = Depends(get_db)):
+    assessments = db.query(Assessment).all()
+
+    total_assessments = len(assessments)
+
+    total_questions = 0
+
+    for assessment in assessments:
+        if assessment.questions:
+            total_questions += len(assessment.questions)
+
+    success_rate = 100 if total_assessments > 0 else 0
+
+    return {
+        "total_assessments": total_assessments,
+        "total_questions": total_questions,
+        "success_rate": success_rate
+    }
